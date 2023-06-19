@@ -1,0 +1,90 @@
+#include <iostream>
+using namespace std;
+#include <vector>
+#include <map>
+
+map<int, vector<int>> adjacencySet(vector<pair<int, int>> edges){
+	map<int, vector<int>> list;
+    vector<int> adjacent;
+    for(int i=0; i<edges.size();i++){
+    	pair<int, int> currentPair = edges[i];
+        if(list.find(currentPair.first) != list.end()){ //not in list
+        	adjacent = list[currentPair.first];
+            adjacent.push_back(currentPair.second];
+            list[currentPair.first] = adjacent;
+        }
+        else{
+        	adjacent.push_back(currentPair.second);
+            list[currentPair.first] = adjacent;
+        }
+    }
+
+return list;
+}
+
+bool bfs(int target, map<int, vector<int>> graph){
+	bool result = false;
+    vector<bool> visited;
+    list<int> queue;
+    int position = 0;
+    //first push to queue
+    //mark position as visited
+    //remove from front of queue and push neigbours to queue
+    //also check if it matches with the target value -> if so, return true
+    
+    for(auto const& x: graph){
+        queue.push(x);
+        visited[position] = true; 
+        
+        for(auto const& y: x){
+        if(y == target){
+        	result = true;
+            return result;
+        }
+        position++;
+        queue.pop_front();
+        
+    } 
+    return result;
+}
+
+bool dfs(int target, map<int, vector<int>> graph){
+	bool result = false;
+    vector<int> visited;
+    list<int> stack;
+    int position = 0;
+    
+    for(auto const& x: graph){
+        stack.push(x);
+        visited.push_back(x); 
+        
+        for(auto const& y: x){
+        if(y == target){
+        	result = true;
+            return result;
+        }
+        position++;
+        visited.clear();
+        
+    } 
+    return result;
+}
+
+vector<int> topographicalHelperDFS(int target, map<int, vector<int>> graph){
+    vector<int> visited;
+    list<int> stack;
+    int position = 0;
+    
+    for(auto const& x: graph){
+        stack.push(x);
+        visited.push_back(x); 
+    }
+        
+    return visited;
+}
+
+
+vector<int> topologicalSort(map<int, vector<int>> graph){
+	vector<int> sorted = topographicalHelperDFS();
+    return sorted;
+}
