@@ -1,0 +1,29 @@
+#include <iostream>
+using namespace std;
+
+class Heap {
+	private:
+    	vector<int> arr;
+    
+    public:
+    
+    
+    int top(){
+    return arr[0];
+    }
+    
+    void insert(int x);
+    
+    void remove(){
+    arr[0] = arr.back();
+    arr.pop_back();
+    }
+    
+}
+
+
+
+int main() {
+  cout << "Hello World!";
+  return 0;
+}
