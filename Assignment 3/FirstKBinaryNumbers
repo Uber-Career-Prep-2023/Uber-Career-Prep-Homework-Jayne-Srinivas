@@ -5,7 +5,7 @@ using namespace std;
 
 vector<string> binaryList(int num){
 
-	int[10] temp;
+	int[10] temp, n;
     string str;
     vector<string> list;
     
@@ -13,12 +13,12 @@ vector<string> binaryList(int num){
     //perform 5%2 -> 1 (first bit)
     //let n = n/2 -> 2
     //perform 2%2 -> 0 (second bit)
-    
+    n = num;
     while(num > -1){
     
-    for(int i =0; num>0; i++){
-    	temp[i] = num%2;
-        num = num/2;
+    for(int i =0; n>0; i++){
+    	temp[i] = n%2;
+        n = n/2;
     }
 
 
@@ -26,7 +26,7 @@ vector<string> binaryList(int num){
     	str+= to_string(j);
     }
     
-    list.push_back(str);
+    list.push_back(str); 
     num--;
     
     }
