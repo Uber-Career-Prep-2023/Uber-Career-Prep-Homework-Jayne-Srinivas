@@ -1,0 +1,55 @@
+#include <iostream>
+using namespace std;
+#include <vector>
+
+class PriorityQueue {
+    private:
+      vector<pair<string, int>> arr; // the underlying array
+
+    public:
+    int top(){ // returns the highest priority (first) element in the PQ
+        return arr[0].first;  
+    } 
+     void heapifyUp(vector<int> array, int a){
+        int i = (array.size()-1)/2;
+        if(array[array.size()].second > array[i].second){
+            int temp = array[array.size()].second;
+            array[array.size()] = array[i].second;
+            array[i] = temp;
+            heapifyUp(array, i);
+        }
+    }
+    void insert(string x, int weight){
+        // adds string x to the PQ with priority weight
+        arr[arr.size()] = make_pair(x,weight);
+        heapifyUp(arr, arr.size());
+    } 
+    
+    void heapifyDown(vector<int> array, int i){
+    int larger = i;
+    int left = 2*i+1;
+    int right = 2*i+2;
+    
+    if(l< array.size()-1 && array[l].second > array[larger].second){
+        larger = l;
+    }
+    else if(r < array.size()-1 && array[r].second) > array[larger].second){
+        larger = r;
+    } 
+    
+    if(larger != i){
+        int temp = arr[i];
+        arr[i] = arr[largest];
+        arr[largest] = temp;
+        heapifyDown(array, larger);
+    }
+    }
+      void remove(){
+          // removes the highest priority (first) element in the PQ
+          int temp = arr[0];
+          arr[0] = arr[arr.size()-1];
+          arr[arr.size()-1] = temp;
+          heapifyDown(arr, 0);
+      } 
+}
+
