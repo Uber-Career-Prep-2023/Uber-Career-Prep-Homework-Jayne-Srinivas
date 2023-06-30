@@ -1,0 +1,115 @@
+#include <iostream>
+using namespace std;
+
+struct Node{
+  Node *next;
+  int data;
+};
+
+void display(Node *list){
+  while(list != NULL){
+    cout << list->data << " ";
+    list = list->next;
+  }
+}
+
+Node *insertAtFront(Node *head, int val){
+  //create a new head, let the head contain val, let the head point to next to insert the old head
+  Node *travelingHead = new Node();
+  travelingHead->data = val;
+  travelingHead->next = head;
+  return travelingHead;
+}
+
+void insertAtBack(Node *head, int val){
+  //create a new end pointer, let the head contain val, set the next end to nullptr, while next!=nullptr: head = head->next, make next equal to the new head
+  Node *endElement = new Node();
+  Node *headMoving = head;
+  endElement->data = val;
+  endElement->next = nullptr;
+  while(headMoving->next != nullptr){
+    headMoving = headMoving->next;
+  }
+  headMoving->next = endElement;
+  display(endElement);
+}
+
+void insertAfter(Node *head, int val, Node *loc){
+  // create a new end pointer, let the end contain val, end->next = loc->next, loc->next = end
+  Node *insertEnd = new Node();
+  insertEnd->data = val;
+  insertEnd->next = loc->next;
+  loc->next = insertEnd;
+  display(insertEnd);
+}
+
+Node *deleteFront(Node *head){
+  //create a new head, let the head point to next head, delete the old head, and return new head
+  Node *newHead = new Node();
+  newHead = head;
+  head = head->next;
+  delete newHead;
+  return head;
+}
+
+void deleteBack(Node *head){
+  Node *endElement = head;
+  Node *start = nullptr;
+  while(endElement->next != nullptr){
+    start = endElement;
+    endElement = endElement->next;
+  }
+  delete start;
+  display(endElement);
+}
+
+
+Node *deleteNode(Node *head, Node *loc){
+  Node *deleteEnd = head;
+  //Node *start = nullptr;
+  deleteEnd->next = loc->next;
+  while(deleteEnd->data != loc->data){
+    //start = deleteEnd;
+    deleteEnd = deleteEnd->next;
+  }
+  delete deleteEnd;
+  return deleteEnd;
+}
+
+
+int length(Node *head){
+Node *follow = head;
+int count = 0;
+  while(follow->next != nullptr){
+    count++;
+    follow = follow->next;
+  }
+  return count;
+}
+
+
+Node *reverseIterative(Node *head){
+  Node *current = head;
+  Node *previous = nullptr;
+  Node *next = nullptr;
+  while(current->next != nullptr){
+    next = current->next;
+    current->next = previous;
+    previous = current;
+    current = next;
+  }
+  head = previous;
+  return head;
+}
+
+
+Node *reversal(Node *current, Node *previous, Node *next){
+  next = current->next;
+  current->next = previous;
+  reversal(next, current, next->next);
+  return current;
+}
+
+Node *reverseRecursive(Node *head){
+  return reversal(head, nullptr, head);
+}
