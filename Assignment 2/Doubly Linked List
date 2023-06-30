@@ -1,0 +1,121 @@
+#include <iostream>
+using namespace std;
+
+struct Node{
+int data;
+Node *next;
+Node *prev;
+};
+
+void display(Node *list){
+  while(list != NULL){
+    cout << list->data << " ";
+    list = list->next;
+  }
+}
+
+Node *insertAtFront(Node *head, int val){
+  Node *travelingHead = new Node();
+  travelingHead->data = val;
+  travelingHead->next = head;
+  travelingHead->prev = nullptr;
+  head->prev = travelingHead;
+  return travelingHead;
+} 
+
+void insertAtBack(Node *head, int val){
+  Node *endElement = new Node();
+  Node *headMoving = head;
+  endElement->data = val;
+  endElement->prev = nullptr;
+  endElement->next = nullptr;
+  while(headMoving->next != nullptr){
+    headMoving = headMoving->next;
+  }
+  headMoving->next = endElement;
+  endElement->prev = headMoving;
+  display(endElement);
+} 
+
+void insertAfter(Node *head, int val, Node *loc){
+  Node *insertEnd = new Node();
+  insertEnd->data = val;
+  insertEnd->prev = nullptr;
+  insertEnd->next = loc->next;
+  insertEnd->prev = loc;
+  loc->next = insertEnd;
+  display(insertEnd);
+}
+
+Node *deleteFront(Node *head){
+  Node *newHead = new Node();
+  newHead = head;
+  newHead->prev = nullptr;
+  head = head->next;
+  newHead->prev = head;
+  delete newHead;
+  return head;
+}
+
+void deleteBack(Node *head){
+   Node *endElement = head;
+  Node *start = nullptr;
+  endElement->prev = nullptr;
+  while(endElement->next != nullptr){
+    start = endElement;
+    endElement = endElement->next;
+  }
+  endElement->prev = endElement->next->next;
+  delete start;
+  display(endElement);
+}
+
+Node *deleteNode(Node *head, Node *loc){
+   Node *deleteEnd = head;
+  //Node *start = nullptr;
+  deleteEnd->next = loc->next;
+  deleteEnd->prev = nullptr;
+  while(deleteEnd->data != loc->data){
+    //start = deleteEnd;
+    deleteEnd = deleteEnd->next;
+}
+  deleteEnd->prev = loc->next;
+  delete deleteEnd;
+  return deleteEnd;
+}
+
+int length(Node *head){
+  Node *follow = head;
+  int count = 0;
+  follow->prev = nullptr;
+  while(follow->next != nullptr){
+    count++;
+    follow = follow->next;
+  }
+  follow->prev = head;
+  return count;
+}
+
+Node *reverseIterative(Node *head){
+  Node *current = head;
+  Node *newHead = nullptr;
+  while(current->next != nullptr){
+    newHead = current->prev;
+    current->prev = current->next;
+    current->next = newHead;
+    current = current->prev;
+    head = current->prev;
+  }
+  return head;
+}
+
+Node *reversal(Node *current, Node *next){
+  next = current->next;
+  current->next = current->prev;
+  reversal(next, next->next);
+  return current;
+}
+
+Node *reverseRecursive(Node *head){
+  return reversal(head, head);
+}
