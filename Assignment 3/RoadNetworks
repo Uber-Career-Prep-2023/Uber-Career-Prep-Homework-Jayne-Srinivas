@@ -1,0 +1,38 @@
+#include <iostream>
+using namespace std;
+#include <vector>
+
+map<string, vector<string>> adjacencyList(vector<pair<string, string>> arr){
+    
+    map<string, vector<string>> list;
+    for(int a = 0; a < arr.size(); a++){
+        auto temp = arr[a].first;
+        list[arr[a].first].push_back(arr[a].second);
+        list[arr[a].second].push_back(temp);
+    }
+return list;    
+}
+
+void dfs(int index, vector<string> adj, map<string, bool> vis){
+    string city = adj[index];
+    for(int j = 0; j < adj[city].size(); j++){
+        int newIndex = adj[index][j];
+        if(adj[newIndex] != " "){
+            dfs(newIndex, adj, vis)
+        }
+    }
+}
+
+int roadNetworks(map<string, vector<string>> road){
+    map<string, vector<string>> adjacent = adjacencyList(road);
+    map<string, bool> visited;
+    int sum = 0;
+    for(auto &i : adjacent){
+        if(!visited[i.first]){
+            visited[i.first] = true;
+            dfs(i.first, adjacent, visited);
+            sum++;
+        }
+    }
+return sum;
+}
