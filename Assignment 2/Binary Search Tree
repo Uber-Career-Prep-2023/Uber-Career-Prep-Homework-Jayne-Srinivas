@@ -1,0 +1,83 @@
+#include <iostream>
+using namespace std;
+
+class Node
+{
+  public:
+    int data;
+   // Node *root = nullptr;
+    Node *left, *right;
+};
+
+class BinarySearchTree:Node {
+public: 
+    void insert(Node *node,int val){
+    
+      if(val > node->data){
+        node = node->right;
+        }
+      else{
+        node = node->left;
+      }
+    }
+
+    int min(Node *current){
+   
+      int finalVal;
+      while(current->left != nullptr){
+        current = current->left;
+      }
+      finalVal = current->data;
+      return finalVal;
+    }
+
+    int max(Node *current){
+      
+      int finalVal;
+      while(current->right != nullptr){
+        current = current->right;
+      }
+      finalVal = current->data;
+      return finalVal;
+    }
+    
+    bool contains(Node *node, int val){
+    
+      bool result = true;
+      while(node != nullptr){
+        if(node->data < val){
+          node = node->right;
+        }
+        else if(node->data > val){
+          node = node->left;
+        }
+        else{
+          insert(node, val);
+          result = false;
+        }
+      }
+      return result;
+    }
+
+    int deleteNode(Node *node, int val){
+      Node *temp = nullptr;
+      int num;
+      while(node != nullptr){
+        if(node->left->data < val){
+          node = node->right;
+        }
+        else if(node->right->data > val){
+          node = node->left;
+        }
+        else if(node->right->data == val || node->left->data == val){
+          temp = node;
+        }
+      }
+      num = temp->data;
+      delete temp;
+      return num;
+    }
+};
+
+
+
