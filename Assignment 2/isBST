@@ -1,0 +1,23 @@
+#include <iostream>
+using namespace std;
+//O(n)
+class Node
+{
+  public:
+    int data;
+   // Node *root = nullptr;
+    Node *left, *right;
+};
+
+class BinarySearchTree:Node {
+public: 
+bool isBST(Node *node){
+  bool result = false;
+  while(node != nullptr){
+    if((node->left->data < node->data) && (node->right->data > node->data)){
+      result = true;
+      }
+    }
+    return result;
+  }
+};
