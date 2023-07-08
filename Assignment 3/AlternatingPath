@@ -1,0 +1,47 @@
+#include <iostream>
+using namespace std;
+#include <vector>
+#include <map>
+
+struct node{
+    char node;
+    string color;
+    int path;
+};
+struct types{
+    char node1;
+    char node2;
+    string color;
+};
+
+vector<types> adjacencyList(vector<types> v){
+    vector<types> adj;
+    for(auto& a : v){
+        adj[a.node1].push_back({a.node2, a.color});
+    }
+    return adj;
+}
+
+int alternatingPath(vector<types> adjacent, char origin, char destination){
+    queue<node> q;
+    map<pair<char, string>, bool> vis;
+    q.push({original,"", 0});
+    vis[{original,""}] = true;
+    while (!q.empty()){
+        node currentNode = q.front();
+        q.pop();
+        
+        if(currentNode.node == destination){
+            return currentNode.path;
+        }
+        
+        for(auto& ch : adjacent[currentNode.node]){
+            if(currentNode.color != ch.color){
+                q.push({ch.node, ch.color, currentNode.path+1});
+                visited[{ch.node, currentNode.color}] = true;
+            }
+            
+        }
+    }
+    return -1;
+}
