@@ -1,0 +1,35 @@
+#include <iostream>
+using namespace std;
+#include <vector>
+#include <map>
+
+struct data{
+   string city1;
+   string city2;
+   double time;
+};
+
+
+vector<data> adjacencyList(vector<data> d){
+    vector<data> adj;
+    for(auto& city : d){
+        adj[city.city1].push_back(city.city2, city.time);
+        adj[city.city2].push_back(city.city1, city.time);
+    }
+    return adj;
+}
+
+void dfs(string start, vector<data> v, map<string, double> p){
+    for(int i = 0; i < v.size(); i++){
+        p[v[i].city1] = v[i].city2 + p[start] + 1;
+        dfs(v[i].city1, v, p)
+    }
+}
+
+int vacationDestinations(string origin, int k, vector<data> list){
+    vector<data> adj = adjacencyList(list);
+    map<string, double> path;
+    path[origin] = 0;
+    dfs(origin, adj, path);
+    return path.size()-1;
+}
