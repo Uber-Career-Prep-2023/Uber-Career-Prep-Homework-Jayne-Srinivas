@@ -1,0 +1,26 @@
+#include <iostream>
+using namespace std;
+#include <vector>
+#include <map>
+
+
+void dfs(map<string, bool> visited, map<string, vector<string>> prereq, string courseName, vector<string> v){
+    visited[courseName] = true;
+    for(int i = 0; i < prereq[courseName].size(); i++){
+        if(!visited.count(prereq[courseName][i])){
+            dfs(visited, prereq, prereq[courseName][i], v)
+        }
+    }
+    v.push_back(courseName);
+}
+
+vector<string> prerequisiteCourses(vector<string> courses, map<string, vector<string>> prerequisites{
+    map<string, bool> vis;
+    vector<string> v;
+    for(int i  = 0; i < courses.size(); i++){
+        if(!vis.count(courses[i])){
+            dfs(vis, prerequisites, courses[i], v);
+        }
+    }
+    return v;
+}
