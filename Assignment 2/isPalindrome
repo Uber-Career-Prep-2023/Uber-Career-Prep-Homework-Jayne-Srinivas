@@ -1,0 +1,19 @@
+struct Node{
+   Node *next;
+   Node *previous;
+   int data;
+};
+
+bool isPalindrome(Node *start){
+    Node *end = start;
+    while(start != end){
+        if(start->data != end->data){
+            return false;
+        }
+        else{
+            start = start->next;
+            end = end->previous;
+        }
+    }
+    return true;
+}
