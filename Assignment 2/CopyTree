@@ -1,0 +1,12 @@
+struct Node{
+   Node *left;
+   Node *right;
+   int data;
+};
+
+Node *copyTree(Node *root){
+    Node *copy = new Node(root->data);
+    copy->left = copyTree(root->left);
+    copy->right = copyTree(root->right);
+    return copy;
+}
