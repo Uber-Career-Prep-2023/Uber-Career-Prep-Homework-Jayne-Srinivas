@@ -1,0 +1,32 @@
+struct Node{
+   Node *next;
+   int data;
+};
+
+int length(Node *head){
+    int count = 0;
+    Node *current = head;
+    while (current != NULL){
+        count++;
+        current = current->next;
+    }
+    return count;
+}
+
+Node *move(Node *head, int k){
+    int length = length(head);
+    Node *newNode = head;
+    for (int i = 0; i < length-k; i++){
+        //newNode->data = head->data;
+        newNode = newNode->next;
+    }
+    
+    return newNode;
+}
+
+Node *insertFront(Node *head, int data){
+    Node *insert = new Node();
+    insert->next = head;
+    insert->data = data;
+    return insert;
+}
