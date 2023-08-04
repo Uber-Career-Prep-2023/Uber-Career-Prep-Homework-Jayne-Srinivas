@@ -1,0 +1,30 @@
+struct Node{
+   Node *left;
+   Node *right;
+   int data;
+};
+
+int floor(Node *root, int target){
+    int floor = 0;
+    
+    if(root->data == target){
+        floor = root->data;
+        return floor;
+    }
+    
+    Node *current = root;
+    while (current != nullptr){
+        if(current->data == k){
+            floor = current->data;
+            return floor;
+        }
+        else if(current->data > k){
+            current = current->left;
+        }
+        else{
+            floor = current->data;
+            current = current->right;
+        }
+    }
+    return floor;
+}
