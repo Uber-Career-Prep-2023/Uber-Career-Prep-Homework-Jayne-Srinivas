@@ -1,0 +1,19 @@
+struct Node{
+   Node *next;
+   int data;
+};
+
+Node *dedupSortedList(Node *head){
+    Node *current = head;
+    Node *nextofnext = nullptr;
+    while(current->next != nullptr){
+        if(current->data == current->next->data){
+            nextofnext = current->next->next;
+            delete current->next;
+            current->next = nextofnext;
+        }
+        else{
+            current = current->next;
+        }
+    }
+}
