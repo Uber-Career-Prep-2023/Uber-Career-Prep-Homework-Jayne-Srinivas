@@ -1,0 +1,20 @@
+struct Node{
+   Node *left;
+   Node *right;
+   int data;
+};
+
+vector<int> left(Node *root){
+    vector<int> nums;
+    queue<Node*> temp;
+    
+    temp.push(root);
+    while(!temp.empty()){
+        for(int i = 0; i < temp.size(); i++){
+            if(temp.front()->left != NULL){
+                nums.push_back(temp.front()->left->data);
+            }
+        }
+    }
+    return nums;
+}
